@@ -36,7 +36,10 @@ def convert_audio_to_spectrogram_data(amps, sample_rate, sample_window=1000, fre
                 if k >= len(fft_data):
                     break
                 tot += fft_data[k]
-            res2.append(20 * math.log10(tot / freq_bucket_size + 0.000001))
+            ratio = tot / freq_bucket_size
+            if ratio <= 0:
+                ratio = 1e-10
+            res2.append(20 * math.log10(ratio))
         # print(res2)
         y.append(res2)
     return np.flip(np.array(y).T,0)
@@ -44,6 +47,7 @@ def convert_audio_to_spectrogram_data(amps, sample_rate, sample_window=1000, fre
 def convert_spectrogram_data_to_img(data, max_freq=18000, sample_window=1000):
     print(data.shape)
     norm = mpl.colors.Normalize(vmin=-120, vmax=0)
+    plt.style.use("dark_background")
     fig, (ax1) = plt.subplots(1)
     pos = ax1.imshow(data, cmap=plt.cm.turbo, norm=norm, aspect='auto', extent=[0, sample_window / 1000 * data.shape[1], 0, max_freq])
     fig.colorbar(pos, ax=ax1)

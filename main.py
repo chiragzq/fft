@@ -26,7 +26,7 @@ def example_fft_sound():
     plt.show()
 
 def example_spectrogram():
-    y, sr = read_mp3("music/pew.mp3")
+    y, sr = read_mp3("music/beep.mp3")
     data = convert_audio_to_spectrogram_data(y, sr)
     convert_spectrogram_data_to_img(data)
 
