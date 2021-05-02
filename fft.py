@@ -10,22 +10,20 @@ import cmath
 
 # Given coeffs [p0, p1, p2, p3, ... pn] evaluate P(x) 
 # If is_inverse is true, uses inverse DFT matrix coefficients
+# coeffs must be power of 2
 def fft(coeffs, is_inverse):
-    while (len(coeffs) & (len(coeffs)-1) != 0) and len(coeffs) != 0:
-        coeffs.append(0)
     n = len(coeffs)
     if n == 1:
         return coeffs
     w_0 = cmath.exp((-1 if is_inverse else 1) * 2 * cmath.pi * 1j / n)
-    p_odd = []
-    p_even = []
-    for i, p_i in enumerate(coeffs):
-        (p_even if i % 2 == 0 else p_odd).append(p_i)
+    p_odd = [coeffs[2 * i] for i in range((len(coeffs) + 1) // 2)]
+    p_even = [coeffs[2 * i + 1] for i in range(len(coeffs) // 2)]
     ret = [0] * n
     y_e = fft(p_even, is_inverse)
     y_o = fft(p_odd, is_inverse)
 
     for i in range(n // 2):
-        ret[i] = y_e[i] + w_0**i * y_o[i]
-        ret[i + n//2] = y_e[i] - w_0**i * y_o[i]
+        w = w_0**i
+        ret[i] = y_e[i] + w * y_o[i]
+        ret[i + n//2] = y_e[i] - w * y_o[i]
     return ret

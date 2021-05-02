@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def example_mult_poly():
-  print(multiply_poly([5,-3,2,14,-26,1,-2],[1,-2,9,6,-4,3,-6])) 
+  print(multiply_poly([5,-3,2,14,-26,1,-2,0],[1,-2,9,6,-4,3,-6,0])) 
   print(fft(fft([5,3,2,1], False), True))
 
 def example_fft_sound():
@@ -26,7 +26,7 @@ def example_fft_sound():
     plt.show()
 
 def example_spectrogram():
-    y, sr = read_mp3("music/beep.mp3")
+    y, sr = read_mp3("music/ice.mp3")
     data = convert_audio_to_spectrogram_data(y, sr)
     convert_spectrogram_data_to_img(data)
 

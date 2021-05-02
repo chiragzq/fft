@@ -1,6 +1,6 @@
 from fft import fft
 
-# no padded zeros! they make everything slower
+# len(coeffs) must be 2^k
 def multiply_poly(coeffs1, coeffs2):
     deg1 = len(coeffs1)
     deg2 = len(coeffs2)
