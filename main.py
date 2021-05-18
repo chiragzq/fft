@@ -62,7 +62,7 @@ def example_fft_file():
     plt.show()
 
 def example_spectrogram():
-    y, sr = read_mp3("music/Zero Percent.mp3")
+    y, sr = read_mp3("music/mma 440hz beep.wav")
     data = convert_audio_to_spectrogram_data(y, sr)
     convert_spectrogram_data_to_img(data)
 

@@ -29,6 +29,8 @@ One second sample from a song
 
 ### Spectrogram from file
 
-![](https://i.imgur.com/C8nYhys.png)
+![Spectrogram of a beep used to censor a word](https://i.imgur.com/C8nYhys.png)
 Spectrogram of a beep used to censor a word
 
+![Spectrogram of a 440Hz tone of amplitude 10^-5 created in mathematica](https://i.imgur.com/oaBzMJQ.png)
+Spectrogram of a 440Hz tone of amplitude 10<sup>-5</sup> created in mathematica
