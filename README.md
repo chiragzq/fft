@@ -4,7 +4,7 @@ Implementation of Cooley-Tukey FFT in python and some applications
 
 ### Fast Polynomial Multiplication
 
-![Diagram of FFT multiplication](https://i.imgur.com/94Eo3Ft.png)
+![Diagram of FFT multiplication](https://i.imgur.com/Xejz8v8.png)
 
 ```py
 poly1 = [-3, 4, 8]

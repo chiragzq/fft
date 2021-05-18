@@ -55,7 +55,6 @@ def example_fft_file():
     fig, (ax1, ax2) = plt.subplots(2,1)
     ax1.plot(t_data, a_data)
 
-
     res = [abs(x) for x in fft(a_data, False)]
     res = res[:len(res)//2]
 
