@@ -13,5 +13,7 @@ def multiply_poly(coeffs1, coeffs2):
         ptsmult.append(pt_1 * pt_2)
     return [round_j(p / len(ptsmult), 10) for p in fft(ptsmult, True)]
 
+
+
 def round_j(x, k):
     return round(x.real, k) + 1j * round(x.imag, k)
