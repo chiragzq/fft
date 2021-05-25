@@ -10,7 +10,6 @@ import cmath
 
 # Given coeffs [p0, p1, p2, p3, ... pn] evaluate P(x) 
 # If is_inverse is true, uses inverse DFT matrix coefficients
-# coeffs must be power of 2
 def fft_recur(coeffs, is_inverse):
     n = len(coeffs)
     if n == 1:
