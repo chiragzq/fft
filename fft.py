@@ -10,29 +10,37 @@ import cmath
 
 # Given coeffs [p0, p1, p2, p3, ... pn] evaluate P(x) 
 # If is_inverse is true, uses inverse DFT matrix coefficients
-def fft_recur(coeffs, is_inverse):
-    n = len(coeffs)
-    if n == 1:
-        return coeffs # fourier transform of constant is itself
-    w_0 = cmath.exp((-1 if is_inverse else 1) * 2 * cmath.pi * 1j / n) # find roots of unity
-    p_even = [coeffs[2 * i] for i in range((len(coeffs) + 1) // 2)] # split even and odd indexed samples
-    p_odd = [coeffs[2 * i + 1] for i in range(len(coeffs) // 2)]
 
-    ret = [0] * n
-    y_e = fft_recur(p_even, is_inverse) # calculate fft over even and odd split (log N recursive step)
-    y_o = fft_recur(p_odd, is_inverse)
+import numpy.ctypeslib as ctl
+import ctypes
 
-    for i in range(n // 2):
-        w = w_0**i
-        ret[i] = y_e[i] + w * y_o[i] # calculate full fourier transform by combining even and odd indexed transforms
-        ret[i + n//2] = y_e[i] - w * y_o[i]
-    return ret
+libname = 'fftc.so'
+libdir = './'
+lib = ctypes.cdll.LoadLibrary("./fftc.so")
+
+fft_recur = lib.fft
+fft_recur.argtypes = [ctypes.POINTER(ctypes.c_double), ctypes.c_int, ctypes.POINTER(ctypes.c_double)]
+
+# def fft_recur(coeffs, is_inverse):
+#     n = len(coeffs)
+#     if n == 1:
+#         return coeffs # fourier transform of constant is itself
+#     w_0 = cmath.exp((-1 if is_inverse else 1) * 2 * cmath.pi * 1j / n) # find roots of unity
+#     p_even = [coeffs[2 * i] for i in range((len(coeffs) + 1) // 2)] # split even and odd indexed samples
+#     p_odd = [coeffs[2 * i + 1] for i in range(len(coeffs) // 2)]
+
+#     ret = [0] * n
+#     y_e = fft_recur(p_even, is_inverse) # calculate fft over even and odd split (log N recursive step)
+#     y_o = fft_recur(p_odd, is_inverse)
+
+#     for i in range(n // 2):
+#         w = w_0**i
+#         ret[i] = y_e[i] + w * y_o[i] # calculate full fourier transform by combining even and odd indexed transforms
+#         ret[i + n//2] = y_e[i] - w * y_o[i]
+#     return ret
 
 def fft(coeffs, is_inverse): # make sure that the length of the input is a power of 2
-    n = len(coeffs)
-    power = 1
-    while power < n:
-        power *= 2
-    coeffs += [0] * (power - n)
-    # print(coeffs)
-    return fft_recur(coeffs, is_inverse)
+    param = (ctypes.c_double * len(coeffs))(*coeffs)
+    param2 = (ctypes.c_double * len(coeffs))(*coeffs)
+    fft_recur(param, len(coeffs), param2)
+    return param2.value

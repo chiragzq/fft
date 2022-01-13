@@ -35,5 +35,5 @@ Spectrogram of a beep used to censor a word
 ![Spectrogram of a 440Hz tone of amplitude 10^-5 created in mathematica](https://i.imgur.com/oaBzMJQ.png)
 Spectrogram of a 440Hz tone of amplitude 10<sup>-5</sup> created in mathematica
 
-![](https://i.imgur.com/B1amUaM.png)
+![](https://i.imgur.com/B1amUaM.png)  
 Spectrogram of a full song
